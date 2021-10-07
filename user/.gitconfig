@@ -1,0 +1,14 @@
+[http]
+	proxy = http://cmproxy2.nda.ac.jp:9090
+[https]
+	proxy = http://cmproxy2.nda.ac.jp:9090
+[user]
+	name = Ksuzuki
+	email = uver.gekido.in.first@gmail.com
+[url "https://"]
+	insteadOf = git://
+[url "github:"]
+  InsteadOf = https://github.com/
+  InsteadOf = git@github.com:
+[core]
+	excludesfile = /Users/ksuzuki/.gitignore_global
