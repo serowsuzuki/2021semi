@@ -1,0 +1,7 @@
+proxy_servers:
+  http: http://cmproxy2.nda.ac.jp:9090
+  https: http://cmproxy2.nda.ac.jp:9090
+ssl_verify: false
+channels:
+  - defaults
+  - conda-forge
