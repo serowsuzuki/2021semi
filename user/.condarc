@@ -3,5 +3,5 @@ proxy_servers:
   https: http://cmproxy2.nda.ac.jp:9090
 ssl_verify: false
 channels:
-  - defaults
   - conda-forge
+  - defaults

@@ -25,7 +25,8 @@
 #### インストール
 
 - [ここ](https://docs.conda.io/en/latest/miniconda.html)から，[Miniconda3 MacOSX 64-bit pkg](https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.pkg)をダウンロード．
-- 開いてインストールする．
+- 開いてインストールする[^1]．
+  [^1]:インストーラーを使った方法は，(個人的には)uncotrolableなので，`brew`などから導入することをお勧めする．しかし，手数がかかるため，ここではインストーラーを使って導入することにした．
 
 #### 使い方
 
@@ -49,6 +50,44 @@ conda install [package]
 conda info
 ```
 
+#### プロキシ設定
+
+- おそらくそのままだと，`update`コマンドなどは通らないので，プロキシ設定をする．
+- ホームディレクトリの`.condarc`に次を追記．
+
+```sh
+proxy_servers:
+  http: http://cmproxy2.nda.ac.jp:9090
+  https: http://cmproxy2.nda.ac.jp:9090
+ssl_verify: false
+channels:
+  - conda-forge
+  - defaults
+```
+
+- もしくは，ターミナルで次を打っても一緒
+
+```sh
+~ -> conda config --set proxy_servers.http http://cmproxy2.nda.ac.jp:9090
+~ -> conda config --set proxy_servers.https https://cmproxy2.nda.ac.jp:9090
+~ -> conda config --set ssl_verify false
+~ -> conda config --add channels conda-forge
+```
+
+この設定は，
+
+```sh
+~ -> conda config --show
+```
+
+もしくは，
+
+```sh
+~ -> conda config --show-source
+```
+
+で確認できる．
+
 ### Jupyter Lab
 
 - [公式サイト](https://jupyter.org/install)，もしくは[installation guide](https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html)に沿ってやる．
@@ -71,5 +110,5 @@ jupyter-lab
 ## ref
 
 - Jupyter Notebookを触る上で参考になりそうなサイトを書いておく．
-  https://www.yutaka-note.com/archive/category/Matplotlib
-  https://www.yutaka-note.com/archive/category/pandas
+  - グラフを書くモジュール：[Matplotlib](https://www.yutaka-note.com/archive/category/Matplotlib)
+  - データを処理するモジュール：[Pandas](https://www.yutaka-note.com/archive/category/pandas)
