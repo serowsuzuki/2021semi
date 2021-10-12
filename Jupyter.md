@@ -3,7 +3,7 @@
 ## 方針
 
 - Jupyter Notebookとは([wiki](https://ja.wikipedia.org/wiki/Project_Jupyter)より)
-  - Jupyter Notebook （旧IPython Notebooks）はJupyter Notebookドキュメントを作成・共有するためのウェブアプリケーションである[8]。Jupyter Notebookドキュメントはプログラムコード、Markdownテキスト、数式、図式等を含むことができる[9]。これにより数値計算アルゴリズムとシミュレーション結果、統計解析コードとその実行結果グラフ、機械学習モデルと推論出力など、様々なプログラムとその結果を再実行可能な1つのドキュメントとして表現できる．
+  - Jupyter Notebook （旧IPython Notebooks）はJupyter Notebookドキュメントを作成・共有するためのウェブアプリケーションである。Jupyter Notebookドキュメントはプログラムコード、Markdownテキスト、数式、図式等を含むことができる。これにより数値計算アルゴリズムとシミュレーション結果、統計解析コードとその実行結果グラフ、機械学習モデルと推論出力など、様々なプログラムとその結果を再実行可能な1つのドキュメントとして表現できる．
 - 中でもJupyter LabはJupyter Notebookを作成するためのウェブアプリケーション．
 - Jupyter Labはwebserverで動くのクライアント側にはほとんど何もいらない．
 - 従って，Jupyterを動かすという目的のみならば，ミニマムな環境で問題ない．
@@ -26,7 +26,7 @@
 
 - [ここ](https://docs.conda.io/en/latest/miniconda.html)から，[Miniconda3 MacOSX 64-bit pkg](https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.pkg)をダウンロード．
 - 開いてインストールする[^1]．
-  [^1]:インストーラーを使った方法は，(個人的には)uncotrolableなので，`brew`などから導入することをお勧めする．しかし，手数がかかるため，ここではインストーラーを使って導入することにした．
+  [^1]:インストーラーを使った方法は，(個人的には)uncotrolableなので，`brew`などから導入することをお勧めする．しかし，手数がかかるため，ここではインストーラーを使って導入することにした．`brew`を導入済みの場合は，`brew install miniconda`で導入できる．
 
 #### 使い方
 
@@ -39,6 +39,8 @@ conda update --all
 ```
 
 - パッケージのインストール
+  - 必要なモジュールはこのコマンドでインストールする．
+  - conda-forgeの[パッケージ一覧](https://conda-forge.org/feedstock-outputs/)
 
 ```sh
 conda install [package]
@@ -112,3 +114,4 @@ jupyter-lab
 - Jupyter Notebookを触る上で参考になりそうなサイトを書いておく．
   - グラフを書くモジュール：[Matplotlib](https://www.yutaka-note.com/archive/category/Matplotlib)
   - データを処理するモジュール：[Pandas](https://www.yutaka-note.com/archive/category/pandas)
+  - [githubからファイルをダウンロードする](https://tetsufuku-blog.com/github-download/)
