@@ -9,4 +9,6 @@ pandaにデータを貼ってもらえればここに追加します[^1]．
 
 [type_Ia-gnuplot.ipynb](https://nbviewer.org/github/serowsuzuki/2021semi/blob/master/type_Ia-gnuplot.ipynb)：The Open Supernpva Catalogをgnuplotで使いやすいように整形
 
+[fittng.ipynb](https://github.com/serowsuzuki/2021semi/blob/master/fittng.ipynb)：[このサイト](https://rikei-fufu.com/2020/07/05/post-3270-fitting/)を真似してfittingしてみました．この調子で2次関数でもできると思います．
+
 [Jupyter.md](https://github.com/serowsuzuki/2021semi/blob/master/Jupyter.md)：Jupyter環境構築のメモ
