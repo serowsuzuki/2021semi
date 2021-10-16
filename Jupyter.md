@@ -26,7 +26,6 @@
 
 - [ここ](https://docs.conda.io/en/latest/miniconda.html)から，[Miniconda3 MacOSX 64-bit pkg](https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.pkg)をダウンロード．
 - 開いてインストールする[^1]．
-  [^1]:インストーラーを使った方法は，(個人的には)uncotrolableなので，`brew`などから導入することをお勧めする．しかし，手数がかかるため，ここではインストーラーを使って導入することにした．`brew`を導入済みの場合は，`brew install miniconda`で導入できる．
 
 #### 使い方
 
@@ -70,22 +69,22 @@ channels:
 - もしくは，ターミナルで次を打っても一緒
 
 ```sh
-~ -> conda config --set proxy_servers.http http://cmproxy2.nda.ac.jp:9090
-~ -> conda config --set proxy_servers.https https://cmproxy2.nda.ac.jp:9090
-~ -> conda config --set ssl_verify false
-~ -> conda config --add channels conda-forge
+conda config --set proxy_servers.http http://cmproxy2.nda.ac.jp:9090;
+conda config --set proxy_servers.https https://cmproxy2.nda.ac.jp:9090;
+conda config --set ssl_verify false;
+conda config --add channels conda-forge
 ```
 
 この設定は，
 
 ```sh
-~ -> conda config --show
+conda config --show
 ```
 
 もしくは，
 
 ```sh
-~ -> conda config --show-source
+conda config --show-source
 ```
 
 で確認できる．
@@ -105,6 +104,65 @@ conda install -c conda-forge jupyterlab
 jupyter-lab
 ```
 
+### VSCodeの設定
+
+- **前提条件：ここまでの設定をしていること．VSCode導入済み**．[^2]
+- Jupyter NotebookをVSCodeで使えるようにします．
+- VSCodeでJupyterするメリット
+  - Pythonを含め，様々な言語に対応していているので，TeXなども含めて全てこれで完結できる．
+  - 拡張機能も豊富で，拡張性が高い(Theme,Keymapなど)．「これできたらいいのに」は大抵誰かがやっている．
+
+1. VSCodeを開き，拡張機能(⌘+⇧+X)から"Jupyter Notebook Renderers"と"Jupyter Keymap"をインストールする．
+2. コマンドパネル(⌘+⇧+P)を開き，「基本設定：設定(JSON)を開く」を選択．
+3. 次の設定を追加，保存する．
+
+```json
+"python.defaultInterpreterPath": "[pythonPath]",
+"python.condaPath": "[condaPath]",
+```
+
+- ここで，[pythonPath]と[condaPath]はターミナルを使って，次のように調べる．
+
+```sh
+#[pythonPath]
+echo $CONDA_PYTHON_EXE
+
+#[condaPath]
+echo $CONDA_EXE
+```
+
+- この環境変数は`conda info -s`でも調べられる．
+
+#### VScodeでJupyter notebookを開く
+
+- コマンドパネル(⌘+⇧+P)を開き，"Jupyter:Create New Jupyter Notebook"
+- コマンドパネル(⌘+⇧+P)を開き，"Jupyter:Select Interpreter to start Jupyter server"から，先ほどの[pythonPath]と同じpythonを選択する．
+- あとは，Jupyter-Labと同じように使える．
+- VSCodeで作業する時はフォルダごと開いておくと作業しやすい．
+  - 作業フォルダが`~/Document/work_jupyter`の場合，ターミナルで`code ~/Document/work_jupyter`と打つと，フォルダごと開いて作業できる．
+
+#### インテリセンス
+
+`vscode`+`python`のtabでインテリセンス（コード補完）はデフォルトの設定だとできない．
+`settings.json`の`"python.autoComplete.extraPaths"`にパッケージのパスを追加する．
+追加するパスは次のように調べる．
+
+- ターミナルで，`python`などとしてインタラクティブモードに入り，適当なパッケージをインポートし，パスを表示させる．
+
+```python
+>>>import sympy as sym
+>>>sym.__file__
+'opt/miniconda/lib/python3.8/site-packages/sympy/__init__.py'
+```
+
+- 上のパスを参考に`settings.json`には次を追加する（環境によって変わる）．
+
+```json
+ "python.autoComplete.extraPaths": [
+    "opt/minoconda/lib/python3.8/site-packages"
+  ],
+```
+
 ## 環境構築 for Win
 
 - MinicondaのインストールでMiniconda3 Windows 32-bit or 64-bitをインストールする以外は全部同じでできるはずですが，こちらに端末がないので，確認していないです．
@@ -115,3 +173,6 @@ jupyter-lab
   - グラフを書くモジュール：[Matplotlib](https://www.yutaka-note.com/archive/category/Matplotlib)
   - データを処理するモジュール：[Pandas](https://www.yutaka-note.com/archive/category/pandas)
   - [githubからファイルをダウンロードする](https://tetsufuku-blog.com/github-download/)
+
+[^1]:インストーラーを使った方法は，(個人的には)uncotrolableなので，`brew`などから導入することをお勧めする．しかし，手数がかかるため，ここではインストーラーを使って導入することにした．`brew`を導入済みの場合は，`brew install miniconda`で導入できる．
+[^2]: 実は`jupyter-lab`は必要ないが，`jupyter-lab`に付随して必要なモジュールをインストールしているので，別に無駄ではない．
