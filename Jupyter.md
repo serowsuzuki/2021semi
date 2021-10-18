@@ -5,7 +5,7 @@
 - Jupyter Notebookとは([wiki](https://ja.wikipedia.org/wiki/Project_Jupyter)より)
   - Jupyter Notebook （旧IPython Notebooks）はJupyter Notebookドキュメントを作成・共有するためのウェブアプリケーションである。Jupyter Notebookドキュメントはプログラムコード、Markdownテキスト、数式、図式等を含むことができる。これにより数値計算アルゴリズムとシミュレーション結果、統計解析コードとその実行結果グラフ、機械学習モデルと推論出力など、様々なプログラムとその結果を再実行可能な1つのドキュメントとして表現できる．
 - 中でもJupyter LabはJupyter Notebookを作成するためのウェブアプリケーション．
-- Jupyter Labはwebserverで動くのクライアント側にはほとんど何もいらない．
+- ~~Jupyter Labはwebserverで動くのでクライアント側にはほとんど何もいらない．~~ 勘違いでした(2021/10/18追記)．
 - 従って，Jupyterを動かすという目的のみならば，ミニマムな環境で問題ない．
 - とはいえ，もしかしたら色々拡張したくなるかもしれないので，そこそこの拡張性を担保する．
 - 以上を考慮し次を導入する
@@ -69,10 +69,7 @@ channels:
 - もしくは，ターミナルで次を打っても一緒
 
 ```sh
-conda config --set proxy_servers.http http://cmproxy2.nda.ac.jp:9090;
-conda config --set proxy_servers.https https://cmproxy2.nda.ac.jp:9090;
-conda config --set ssl_verify false;
-conda config --add channels conda-forge
+conda config --set proxy_servers.http http://cmproxy2.nda.ac.jp:9090;conda config --set proxy_servers.https https://cmproxy2.nda.ac.jp:9090;conda config --set ssl_verify false;conda config --add channels conda-forge
 ```
 
 この設定は，
@@ -104,17 +101,18 @@ conda install -c conda-forge jupyterlab
 jupyter-lab
 ```
 
-### VSCodeの設定
+### VSCodeの設定(2021/10/18追記)
 
 - **前提条件：ここまでの設定をしていること．VSCode導入済み**．[^2]
 - Jupyter NotebookをVSCodeで使えるようにします．
 - VSCodeでJupyterするメリット
   - Pythonを含め，様々な言語に対応していているので，TeXなども含めて全てこれで完結できる．
-  - 拡張機能も豊富で，拡張性が高い(Theme,Keymapなど)．「これできたらいいのに」は大抵誰かがやっている．
+  - 拡張機能も豊富で，拡張性が高い(Theme,Keymapなど)．「こんな機能あったらいいのに」は大抵誰かが作っている．
 
-1. VSCodeを開き，拡張機能(⌘+⇧+X)から"Jupyter Notebook Renderers"と"Jupyter Keymap"をインストールする．
-2. コマンドパネル(⌘+⇧+P)を開き，「基本設定：設定(JSON)を開く」を選択．
-3. 次の設定を追加，保存する．
+#### 設定
+
+- VSCodeを開き，拡張機能(⌘+⇧+X)から"**Jupyter Notebook Renderers**","**Jupyter Keymap**","**Python**"をインストールする[^3]．（いくつか同じような名前の拡張機能があるが，一番ダウンロード数が多いやつ）
+- コマンドパネル(⌘+⇧+P)を開き，「基本設定：設定(JSON)を開く」を選択．次の設定を追加，保存する．
 
 ```json
 "python.defaultInterpreterPath": "[pythonPath]",
@@ -147,7 +145,7 @@ echo $CONDA_EXE
 `settings.json`の`"python.autoComplete.extraPaths"`にパッケージのパスを追加する．
 追加するパスは次のように調べる．
 
-- ターミナルで，`python`などとしてインタラクティブモードに入り，適当なパッケージをインポートし，パスを表示させる．
+- ターミナルで，`python`などとしてインタラクティブモードに入り，適当なパッケージをインポートし，パスを表示させる（環境によって異なる）．
 
 ```python
 >>>import sympy as sym
@@ -155,12 +153,15 @@ echo $CONDA_EXE
 'opt/miniconda/lib/python3.8/site-packages/sympy/__init__.py'
 ```
 
-- 上のパスを参考に`settings.json`には次を追加する（環境によって変わる）．
+- 上のパス(`site-packages/`まで)を参考に`settings.json`には次を追加する．
 
 ```json
  "python.autoComplete.extraPaths": [
     "opt/minoconda/lib/python3.8/site-packages"
   ],
+  "python.analysis.extraPaths":[
+    "opt/minoconda/lib/python3.8/site-packages"
+  ]
 ```
 
 ## 環境構築 for Win
@@ -174,5 +175,23 @@ echo $CONDA_EXE
   - データを処理するモジュール：[Pandas](https://www.yutaka-note.com/archive/category/pandas)
   - [githubからファイルをダウンロードする](https://tetsufuku-blog.com/github-download/)
 
-[^1]:インストーラーを使った方法は，(個人的には)uncotrolableなので，`brew`などから導入することをお勧めする．しかし，手数がかかるため，ここではインストーラーを使って導入することにした．`brew`を導入済みの場合は，`brew install miniconda`で導入できる．
-[^2]: 実は`jupyter-lab`は必要ないが，`jupyter-lab`に付随して必要なモジュールをインストールしているので，別に無駄ではない．
+## VSCodeのお勧めの拡張機能
+
+- theme
+
+  - [Dracula Official](https://marketplace.visualstudio.com/items?itemName=dracula-theme.theme-dracula)
+  - [Community Material Theme](https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-community-material-theme)
+  - [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)
+
+- tools
+
+  - [EvilInspector](https://marketplace.visualstudio.com/items?itemName=saikou9901.evilinspector)
+  - [Bracket Select](https://marketplace.visualstudio.com/items?itemName=chunsen.bracket-select)
+
+- productivity
+
+  - [vscode-pets](https://marketplace.visualstudio.com/items?itemName=tonybaloney.vscode-pets)
+
+[^1]: インストーラーを使った方法は，(個人的には)uncotrolableなので，`brew`などから導入することをお勧めする．しかし，手数がかかるため，ここではインストーラーを使って導入することにした．`brew`を導入済みの場合は，`brew install miniconda`で導入できる．
+[^2]: `jupyter-lab`は必要ないが，`jupyter-lab`に付随して必要なモジュールをインストールしているので，別に無駄ではない．特に`jupyter`はおそらく必須．
+[^3]: Pylanceなどは勝手にインストールされる．
