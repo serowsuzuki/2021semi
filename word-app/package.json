@@ -1,0 +1,25 @@
+{
+  "name": "word-app",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "英単語学習アプリ (間隔反復 + AIによる単語情報生成)",
+  "workspaces": [
+    "server",
+    "web"
+  ],
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,green \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:server": "npm run dev --workspace server",
+    "dev:web": "npm run dev --workspace web",
+    "build": "npm run build --workspace web",
+    "start": "npm run start --workspace server",
+    "test": "npm run test --workspace server"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}
